@@ -1,0 +1,38 @@
+server:
+  port: 8081
+
+spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8085/realms/smart-campus
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/user_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: user
+    password: user123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
+      register-with-eureka: true
+      fetch-registry: true

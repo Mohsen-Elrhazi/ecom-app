@@ -1,0 +1,46 @@
+services:
+
+  user-mysql:
+    image: mysql:8.4
+    container_name: ecom-user-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - ecom_user_mysql_data:/var/lib/mysql
+
+    networks:
+      - ecom-user-network
+
+  user-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ecom-user-phpmyadmin
+    restart: unless-stopped
+
+    environment:
+      PMA_HOST: user-mysql
+      PMA_PORT: 3306
+
+    ports:
+      - "8082:80"
+
+    depends_on:
+      - user-mysql
+
+    networks:
+      - ecom-user-network
+
+
+volumes:
+  ecom_user_mysql_data:
+
+networks:
+  ecom-user-network:
