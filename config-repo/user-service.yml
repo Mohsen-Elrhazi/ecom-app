@@ -2,11 +2,15 @@ server:
   port: 8081
 
 spring:
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: http://localhost:8085/realms/smart-campus
+  devtools:
+    livereload:
+      enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8085/realms/ecom-app
 
   datasource:
     url: jdbc:mysql://localhost:3307/user_db
@@ -24,15 +28,9 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
-
-  eureka:
-    client:
-      service-url:
-        defaultZone: http://localhost:8761/eureka/
-      register-with-eureka: true
-      fetch-registry: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true

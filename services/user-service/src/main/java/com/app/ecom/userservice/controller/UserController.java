@@ -12,6 +12,11 @@ public class UserController {
 
     @GetMapping("/test")
     public String test(){
-        return "hello from user-service";
+        return "hello from user-service devtools ko";
+    }
+
+    @GetMapping("/test2")
+    public String test2(){
+        return "this is test 2 ok";
     }
 }
