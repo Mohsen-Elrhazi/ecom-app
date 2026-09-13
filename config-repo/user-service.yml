@@ -3,6 +3,8 @@ server:
 
 spring:
   devtools:
+    restart:
+      enabled: true
     livereload:
       enabled: true
 
@@ -11,6 +13,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8085/realms/ecom-app
+          jwk-set-uri: http://localhost:8085/realms/ecom-app/protocol/openid-connect/certs
 
   datasource:
     url: jdbc:mysql://localhost:3307/user_db
@@ -34,3 +37,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+jwt:
+  auth:
+    converter:
+      resource-id: ecom-app-web
+      principle-attribute: preferred_username
