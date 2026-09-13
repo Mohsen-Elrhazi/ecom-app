@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/customer")
-    @PreAuthorize("hasAnyRole('CUSTOMER', 'ADMIN')")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<String> customer(){
         return ResponseEntity.status(HttpStatus.SC_OK).body("hello from user-service with Customer Role");
     }
