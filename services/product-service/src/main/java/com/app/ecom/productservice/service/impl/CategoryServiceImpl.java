@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category not found with this id: " + id));
 
-        categoryRepository.deleteById(id);
+        categoryRepository.delete(category);
     }
 
     @Override

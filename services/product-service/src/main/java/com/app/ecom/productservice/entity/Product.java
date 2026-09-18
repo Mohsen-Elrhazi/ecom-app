@@ -16,13 +16,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @Lob
     private String description;
 
-    private int availableQuantity;
+    @Column(nullable = false)
+    private Integer availableQuantity;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @ManyToOne
