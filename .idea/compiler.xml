@@ -21,6 +21,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="product-service" target="21" />
+      <module name="product-service.main" target="21" />
+      <module name="product-service.test" target="21" />
       <module name="user-service.main" target="21" />
       <module name="user-service.test" target="21" />
     </bytecodeTargetLevel>
