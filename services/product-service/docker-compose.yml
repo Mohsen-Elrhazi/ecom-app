@@ -1,0 +1,49 @@
+
+services:
+
+  product-mysql:
+    image: mysql:8.4
+    container_name: ecom-product-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: product_db
+      MYSQL_USER: product
+      MYSQL_PASSWORD: product123
+
+    ports:
+      - "3309:3306"
+
+    volumes:
+      - ecom_product_mysql_data:/var/lib/mysql
+
+    networks:
+      - ecom-product-network
+
+
+  product-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ecom-product-phpmyadmin
+    restart: unless-stopped
+
+    environment:
+      PMA_HOST: product-mysql
+      PMA_PORT: 3306
+
+    ports:
+      - "8086:80"
+
+    depends_on:
+      - product-mysql
+
+    networks:
+      - ecom-product-network
+
+
+volumes:
+  ecom_product_mysql_data:
+
+
+networks:
+  ecom-product-network:

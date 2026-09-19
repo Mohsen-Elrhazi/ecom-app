@@ -6,11 +6,25 @@ spring:
     gateway:
       server:
         webmvc:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
           routes:
             - id: user-service
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/users/**
+
+            - id: product-service-products
+              uri: lb://PRODUCT-SERVICE
+              predicates:
+                - Path=/api/products/**
+
+            - id: product-service-categories
+              uri: lb://PRODUCT-SERVICE
+              predicates:
+                - Path=/api/categories/**
 
 eureka:
   client:
