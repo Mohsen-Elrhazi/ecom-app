@@ -1,0 +1,48 @@
+services:
+
+  order-mysql:
+    image: mysql:8.4
+    container_name: ecom-order-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order_db
+      MYSQL_USER: order
+      MYSQL_PASSWORD: order123
+
+    ports:
+      - "3310:3306"
+
+    volumes:
+      - ecom_order_mysql_data:/var/lib/mysql
+
+    networks:
+      - ecom-order-network
+
+
+  order-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ecom-order-phpmyadmin
+    restart: unless-stopped
+
+    environment:
+      PMA_HOST: order-mysql
+      PMA_PORT: 3306
+
+    ports:
+      - "8087:80"
+
+    depends_on:
+      - order-mysql
+
+    networks:
+      - ecom-order-network
+
+
+volumes:
+  ecom_order_mysql_data:
+
+
+networks:
+  ecom-order-network:
