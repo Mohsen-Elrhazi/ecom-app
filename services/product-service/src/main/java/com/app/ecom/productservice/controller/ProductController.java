@@ -3,6 +3,7 @@ package com.app.ecom.productservice.controller;
 import com.app.ecom.productservice.dto.category.response.CategoryResponse;
 import com.app.ecom.productservice.dto.common.ApiResponse;
 import com.app.ecom.productservice.dto.product.request.CreateProductRequest;
+import com.app.ecom.productservice.dto.product.request.DecreaseStockRequest;
 import com.app.ecom.productservice.dto.product.request.UpdateProductRequest;
 import com.app.ecom.productservice.dto.product.response.ProductResponse;
 import com.app.ecom.productservice.repository.ProductRepository;
@@ -82,6 +83,19 @@ public class ProductController {
                 .success(true)
                 .message("Product updated successfully")
                 .data(product)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/{id}/decrease-stock")
+    public ResponseEntity<ApiResponse<Void>> decreaseStock(@PathVariable Long id,@RequestBody DecreaseStockRequest request){
+        productService.decreaseStock(id, request);
+
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .success(true)
+                .message("stock updated successfully")
+                .data(null)
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);

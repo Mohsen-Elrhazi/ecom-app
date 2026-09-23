@@ -1,6 +1,7 @@
 package com.app.ecom.productservice.service;
 
 import com.app.ecom.productservice.dto.product.request.CreateProductRequest;
+import com.app.ecom.productservice.dto.product.request.DecreaseStockRequest;
 import com.app.ecom.productservice.dto.product.request.UpdateProductRequest;
 import com.app.ecom.productservice.dto.product.response.ProductResponse;
 import com.app.ecom.productservice.entity.Product;
@@ -13,5 +14,6 @@ public interface ProductService {
     ProductResponse getById(Long id);
     List<ProductResponse> getAll();
     ProductResponse update(Long id, UpdateProductRequest request);
+    void decreaseStock(Long id, DecreaseStockRequest request);
 
 }

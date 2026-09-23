@@ -11,6 +11,7 @@ D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\pro
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\entity\Category.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\entity\Product.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\exception\GlobalExceptionHandler.java
+D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\exception\InsufficientStockException.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\exception\ResourceAlreadyExistsException.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\exception\ResourceNotFoundException.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\mapper\CategoryMapper.java

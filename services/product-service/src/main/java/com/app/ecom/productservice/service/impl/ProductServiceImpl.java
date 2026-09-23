@@ -1,10 +1,12 @@
 package com.app.ecom.productservice.service.impl;
 
 import com.app.ecom.productservice.dto.product.request.CreateProductRequest;
+import com.app.ecom.productservice.dto.product.request.DecreaseStockRequest;
 import com.app.ecom.productservice.dto.product.request.UpdateProductRequest;
 import com.app.ecom.productservice.dto.product.response.ProductResponse;
 import com.app.ecom.productservice.entity.Category;
 import com.app.ecom.productservice.entity.Product;
+import com.app.ecom.productservice.exception.InsufficientStockException;
 import com.app.ecom.productservice.exception.ResourceNotFoundException;
 import com.app.ecom.productservice.mapper.ProductMapper;
 import com.app.ecom.productservice.repository.CategoryRepository;
@@ -76,5 +78,19 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct =  productRepository.save(product);
 
         return productMapper.toResponse(savedProduct);
+    }
+
+    @Override
+    public void decreaseStock(Long id, DecreaseStockRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found with id: " +id));
+
+        if(request.quantity() > product.getAvailableQuantity()){
+            throw new InsufficientStockException("Insufficient stock for product with id: " + id);
+        }
+
+        product.setAvailableQuantity(product.getAvailableQuantity()- request.quantity());
+
+        productRepository.save(product);
     }
 }
