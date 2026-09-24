@@ -9,6 +9,7 @@ import com.app.ecom.orderservice.dto.product.response.ProductResponse;
 import com.app.ecom.orderservice.entity.Order;
 import com.app.ecom.orderservice.entity.OrderItem;
 import com.app.ecom.orderservice.enums.OrderStatus;
+import com.app.ecom.orderservice.exception.ResourceNotFoundException;
 import com.app.ecom.orderservice.mapper.OrderMapper;
 import com.app.ecom.orderservice.repository.OrderRepository;
 import com.app.ecom.orderservice.service.OrderService;
@@ -69,5 +70,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll().stream()
                 .map(orderMapper::toResponse)
                 .toList();
+    }
+
+    @Override
+    public OrderResponse getById(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+
+        return orderMapper.toResponse(order);
     }
 }

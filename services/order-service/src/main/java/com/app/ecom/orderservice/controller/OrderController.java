@@ -31,6 +31,19 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<OrderResponse>> getById(@PathVariable Long id){
+        OrderResponse order = orderService.getById(id);
+
+        ApiResponse<OrderResponse> response = ApiResponse.<OrderResponse>builder()
+                .success(true)
+                .message("order retrieved successfully")
+                .data(order)
+                .build();
+
+        return  ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getAll(){
         List<OrderResponse> orders = orderService.getAll();
