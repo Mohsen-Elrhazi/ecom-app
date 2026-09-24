@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -61,5 +62,12 @@ public class OrderServiceImpl implements OrderService {
        Order savedOrder = orderRepository.save(order);
 
        return orderMapper.toResponse(savedOrder);
+    }
+
+    @Override
+    public List<OrderResponse> getAll() {
+        return orderRepository.findAll().stream()
+                .map(orderMapper::toResponse)
+                .toList();
     }
 }
