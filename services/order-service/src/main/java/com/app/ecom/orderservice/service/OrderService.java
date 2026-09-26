@@ -6,7 +6,7 @@ import com.app.ecom.orderservice.dto.order.response.OrderResponse;
 import java.util.List;
 
 public interface OrderService {
-    OrderResponse create(CreateOrderRequest request);
+    OrderResponse create(CreateOrderRequest request, String customerId);
     List<OrderResponse> getAll();
     OrderResponse getById(Long id);
 }
