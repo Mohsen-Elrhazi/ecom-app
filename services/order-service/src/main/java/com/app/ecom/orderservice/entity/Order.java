@@ -22,7 +22,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false, name="customer_id")
-    private Long customerId;
+    private String customerId;
 
     @Column(nullable = false)
     private String reference;

@@ -9,10 +9,6 @@ import java.util.List;
 
 public record CreateOrderRequest(
 
-        @NotNull(message = "Customer ID is required")
-        Long customerId,
-
-
         @NotEmpty(message = "Order must contain at least one item")
         List<OrderItemRequest> items
 ) {

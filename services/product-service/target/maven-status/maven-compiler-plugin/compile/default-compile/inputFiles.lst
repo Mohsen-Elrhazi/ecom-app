@@ -6,6 +6,7 @@ D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\pro
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\common\ApiError.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\common\ApiResponse.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\product\request\CreateProductRequest.java
+D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\product\request\DecreaseStockRequest.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\product\request\UpdateProductRequest.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\dto\product\response\ProductResponse.java
 D:\IdeaProjects\ecom-app\services\product-service\src\main\java\com\app\ecom\productservice\entity\Category.java

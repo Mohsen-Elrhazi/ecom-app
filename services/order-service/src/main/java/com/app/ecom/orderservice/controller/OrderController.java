@@ -8,6 +8,9 @@ import com.app.ecom.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +22,11 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderResponse>> testProduct(@RequestBody CreateOrderRequest request) {
-        OrderResponse order = orderService.create(request);
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<ApiResponse<OrderResponse>> create(@RequestBody CreateOrderRequest request, @AuthenticationPrincipal Jwt jwt) {
+        String customerId = jwt.getSubject();
+
+        OrderResponse order = orderService.create(request, customerId);
 
         ApiResponse<OrderResponse> response = ApiResponse.<OrderResponse>builder()
                 .success(true)
@@ -45,6 +51,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getAll(){
         List<OrderResponse> orders = orderService.getAll();
 
@@ -55,5 +62,12 @@ public class OrderController {
                 .build();
 
         return  ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity me(@AuthenticationPrincipal Jwt jwt){
+        String customerId = jwt.getSubject();
+
+        return ResponseEntity.ok(customerId);
     }
 }

@@ -30,9 +30,9 @@ public class OrderServiceImpl implements OrderService {
     private final ProductIntegrationServiceImpl productIntegrationService;
 
     @Override
-    public OrderResponse create(CreateOrderRequest request) {
+    public OrderResponse create(CreateOrderRequest request, String customerId) {
         Order order = new Order();
-        order.setCustomerId(request.customerId());
+        order.setCustomerId(customerId);
         order.setReference("ORD-"+ UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         order.setStatus(OrderStatus.PENDING);
         BigDecimal totalAmount = BigDecimal.ZERO;
