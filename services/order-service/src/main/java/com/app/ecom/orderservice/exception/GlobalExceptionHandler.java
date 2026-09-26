@@ -60,4 +60,15 @@ public class GlobalExceptionHandler {
 
          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
      }
+
+     @ExceptionHandler(ServiceUnavailableException.class)
+     public ResponseEntity<ApiError> handleServiceUnavailable(ServiceUnavailableException ex){
+         ApiError apiError = ApiError.builder()
+                 .success(false)
+                 .message(ex.getMessage())
+                 .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                 .build();
+
+         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(apiError);
+     }
 }
