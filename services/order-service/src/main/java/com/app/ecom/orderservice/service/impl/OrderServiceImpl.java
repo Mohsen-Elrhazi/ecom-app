@@ -10,6 +10,7 @@ import com.app.ecom.orderservice.entity.Order;
 import com.app.ecom.orderservice.entity.OrderItem;
 import com.app.ecom.orderservice.enums.OrderStatus;
 import com.app.ecom.orderservice.exception.ResourceNotFoundException;
+import com.app.ecom.orderservice.kafka.producer.StockEventProducer;
 import com.app.ecom.orderservice.mapper.OrderMapper;
 import com.app.ecom.orderservice.repository.OrderRepository;
 import com.app.ecom.orderservice.service.OrderService;
@@ -28,6 +29,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final ProductIntegrationServiceImpl productIntegrationService;
+    private final StockEventProducer stockEventProducer;
 
     @Override
     public OrderResponse create(CreateOrderRequest request, String customerId) {
@@ -40,7 +42,9 @@ public class OrderServiceImpl implements OrderService {
        for( OrderItemRequest item: request.items()){
            ProductResponse product = productIntegrationService.getProduct(item.productId()) ;
 
-           productIntegrationService.decreaseStock(product.id(),new DecreaseStockRequest(item.quantity()));
+//           productIntegrationService.decreaseStock(product.id(),new DecreaseStockRequest(item.quantity()));
+
+           stockEventProducer.sendDecreaseStockEvent(product.id(), item.quantity());
 
            BigDecimal unitPrice = product.price();
            BigDecimal subTotal = unitPrice.multiply(BigDecimal.valueOf(item.quantity()));

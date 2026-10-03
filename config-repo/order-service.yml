@@ -31,6 +31,13 @@ spring:
           issuer-uri: http://localhost:8085/realms/ecom-app
           jwk-set-uri: http://localhost:8085/realms/ecom-app/protocol/openid-connect/certs
 
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 eureka:
   client:
     service-url:

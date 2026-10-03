@@ -1,16 +1,8 @@
-#services:
-#
-#  keycloak:
-#    image: quay.io/keycloak/keycloak:26.7.3
-#    container_name: ecom-app-keycloak
-#    command: start-dev
-#    environment:
-#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-#      KC_BOOTSTRAP_ADMIN_PASSWORD: admin123
-#    ports:
-#      - "8085:8080"
-
 services:
+
+  # =========================================================
+  # KEYCLOAK MYSQL
+  # =========================================================
 
   keycloak-mysql:
     image: mysql:8.4
@@ -32,6 +24,10 @@ services:
     networks:
       - ecom-network
 
+
+  # =========================================================
+  # KEYCLOAK
+  # =========================================================
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -59,6 +55,10 @@ services:
       - ecom-network
 
 
+  # =========================================================
+  # KEYCLOAK PHPMYADMIN
+  # =========================================================
+
   keycloak-phpmyadmin:
     image: phpmyadmin:latest
     container_name: ecom-keycloak-phpmyadmin
@@ -78,10 +78,110 @@ services:
       - ecom-network
 
 
+  # =========================================================
+  # KAFKA - KRaft
+  # =========================================================
+
+  kafka:
+    image: apache/kafka:4.1.0
+    container_name: ecom-kafka
+    restart: unless-stopped
+
+    ports:
+      - "9092:9092"
+
+    environment:
+
+      # -----------------------------
+      # KRaft
+      # -----------------------------
+
+      KAFKA_NODE_ID: 1
+
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+
+
+      # -----------------------------
+      # Listeners
+      # -----------------------------
+
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+
+      # -----------------------------
+      # Single broker
+      # -----------------------------
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+
+      # -----------------------------
+      # General
+      # -----------------------------
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+    networks:
+      - ecom-network
+
+
+  # =========================================================
+  # KAFKA UI
+  # =========================================================
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: ecom-kafka-ui
+    restart: unless-stopped
+
+    ports:
+      - "8084:8080"
+
+    depends_on:
+      - kafka
+
+    environment:
+      KAFKA_CLUSTERS_0_NAME: ecom-kafka
+
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+    networks:
+      - ecom-network
+
+
+# =========================================================
+# VOLUMES
+# =========================================================
+
 volumes:
+
   keycloak_mysql_data:
 
+  kafka_data:
+
+
+# =========================================================
+# NETWORK
+# =========================================================
 
 networks:
+
   ecom-network:
     driver: bridge
