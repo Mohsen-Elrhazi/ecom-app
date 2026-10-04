@@ -34,7 +34,10 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
       properties:
-        spring.json.trusted.packages: com.app.ecom.
+        spring.json.trusted.packages: com.app.ecom.productservice.kafka.event
+        spring.json.value.default.type: com.app.ecom.productservice.kafka.event.DecreaseStockEvent
+        spring.json.use.type.headers: false
+
 
 eureka:
   client:

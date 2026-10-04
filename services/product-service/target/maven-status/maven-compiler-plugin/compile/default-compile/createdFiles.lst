@@ -1,5 +1,6 @@
 com\app\ecom\productservice\dto\product\response\ProductResponse.class
 com\app\ecom\productservice\entity\Category.class
+com\app\ecom\productservice\mapper\CategoryMapperImpl.class
 com\app\ecom\productservice\dto\product\request\UpdateProductRequest.class
 com\app\ecom\productservice\exception\ResourceAlreadyExistsException.class
 com\app\ecom\productservice\mapper\ProductMapper.class
@@ -9,11 +10,14 @@ com\app\ecom\productservice\repository\ProductRepository.class
 com\app\ecom\productservice\dto\common\ApiError$ApiErrorBuilder.class
 com\app\ecom\productservice\controller\CategoryController.class
 com\app\ecom\productservice\dto\common\ApiError.class
+com\app\ecom\productservice\kafka\consumer\StockEventConsumer.class
 com\app\ecom\productservice\controller\ProductController.class
+com\app\ecom\productservice\exception\InsufficientStockException.class
 com\app\ecom\productservice\service\CategoryService.class
 com\app\ecom\productservice\service\ProductService.class
 com\app\ecom\productservice\mapper\CategoryMapper.class
 com\app\ecom\productservice\service\impl\ProductServiceImpl.class
+com\app\ecom\productservice\kafka\event\DecreaseStockEvent.class
 com\app\ecom\productservice\ProductServiceApplication.class
 com\app\ecom\productservice\dto\category\request\CreateCategoryRequest.class
 com\app\ecom\productservice\dto\product\request\CreateProductRequest.class
@@ -23,4 +27,6 @@ com\app\ecom\productservice\repository\CategoryRepository.class
 com\app\ecom\productservice\dto\category\response\CategoryResponse.class
 com\app\ecom\productservice\service\impl\CategoryServiceImpl.class
 com\app\ecom\productservice\exception\ResourceNotFoundException.class
+com\app\ecom\productservice\mapper\ProductMapperImpl.class
+com\app\ecom\productservice\dto\product\request\DecreaseStockRequest.class
 com\app\ecom\productservice\dto\common\ApiResponse$ApiResponseBuilder.class
