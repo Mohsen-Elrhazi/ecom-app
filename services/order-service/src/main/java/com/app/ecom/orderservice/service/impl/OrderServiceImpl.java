@@ -42,9 +42,9 @@ public class OrderServiceImpl implements OrderService {
        for( OrderItemRequest item: request.items()){
            ProductResponse product = productIntegrationService.getProduct(item.productId()) ;
 
-//           productIntegrationService.decreaseStock(product.id(),new DecreaseStockRequest(item.quantity()));
+           productIntegrationService.decreaseStock(product.id(),new DecreaseStockRequest(item.quantity()));
 
-           stockEventProducer.sendDecreaseStockEvent(product.id(), item.quantity());
+//           stockEventProducer.sendDecreaseStockEvent(product.id(), item.quantity());
 
            BigDecimal unitPrice = product.price();
            BigDecimal subTotal = unitPrice.multiply(BigDecimal.valueOf(item.quantity()));
